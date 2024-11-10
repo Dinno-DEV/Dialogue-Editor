@@ -1,0 +1,247 @@
+[gd_scene load_steps=26 format=3 uid="uid://igghgoj14xbg"]
+
+[ext_resource type="StyleBox" uid="uid://dbvfq1iy743wl" path="res://Styles/main_background.tres" id="1_obqgm"]
+[ext_resource type="StyleBox" uid="uid://m6aikl57gdcq" path="res://Styles/window_panel.tres" id="2_62rlr"]
+[ext_resource type="StyleBox" uid="uid://dt4i886au1is6" path="res://Styles/character_panel_background.tres" id="2_l2thq"]
+[ext_resource type="StyleBox" uid="uid://da01bgtd8qut1" path="res://Styles/panel_background.tres" id="2_rqj20"]
+[ext_resource type="Script" path="res://main.gd" id="2_vbpcr"]
+[ext_resource type="StyleBox" uid="uid://cx5nrdyp4hqc0" path="res://Styles/panel_title_background.tres" id="3_brnaj"]
+[ext_resource type="StyleBox" uid="uid://caorlj3ge70pm" path="res://Styles/character_panel_title_background.tres" id="3_f5nqh"]
+[ext_resource type="Script" path="res://WindowPanelContainer.gd" id="4_07rid"]
+[ext_resource type="LabelSettings" uid="uid://cugtbo268hyio" path="res://Label Settings/panel_title.tres" id="4_figfm"]
+[ext_resource type="FontFile" uid="uid://b2hy1p82ki2h1" path="res://Fonts/Inter_18pt-Regular.ttf" id="5_8lwfh"]
+[ext_resource type="StyleBox" uid="uid://cn12rdr2q1ocg" path="res://Styles/character_button_normal.tres" id="5_cw16e"]
+[ext_resource type="StyleBox" uid="uid://cuqtigb34sha4" path="res://Styles/character_button_hover.tres" id="6_2glin"]
+[ext_resource type="StyleBox" uid="uid://c3pdtaydwb6ph" path="res://Styles/character_button_clicked.tres" id="7_6cvvu"]
+[ext_resource type="Script" path="res://WindowResizer.gd" id="14_5h5xk"]
+[ext_resource type="Script" path="res://MiddleRightResizer.gd" id="15_865i0"]
+[ext_resource type="Script" path="res://BottomMiddleResizer.gd" id="16_7y13h"]
+[ext_resource type="Script" path="res://BottomRightResizer.gd" id="17_t2p5l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4bifp"]
+bg_color = Color(0.191406, 0.199219, 0.183594, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1328"]
+content_margin_left = 8.0
+bg_color = Color(0.078125, 0.078125, 0.078125, 1)
+border_width_left = 2
+border_color = Color(0.191406, 0.199219, 0.183594, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e5twu"]
+
+[sub_resource type="Theme" id="Theme_sabg2"]
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_4bifp")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_4bifp")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_4bifp")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_d1328")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_e5twu")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vca76"]
+size = Vector2(0, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5oyq3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_20prv"]
+size = Vector2(0, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ti17"]
+
+[node name="Main" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_sabg2")
+theme_override_styles/panel = ExtResource("1_obqgm")
+script = ExtResource("2_vbpcr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="WindowPanelContainer" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_62rlr")
+script = ExtResource("4_07rid")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/WindowPanelContainer"]
+layout_mode = 2
+
+[node name="Left" type="HBoxContainer" parent="VBoxContainer/WindowPanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Right" type="HBoxContainer" parent="VBoxContainer/WindowPanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+theme_override_icons/grabber = SubResource("PlaceholderTexture2D_vca76")
+
+[node name="CharacterPanel" type="PanelContainer" parent="VBoxContainer/HSplitContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_l2thq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CharacterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CharacterTitleContainer" type="PanelContainer" parent="VBoxContainer/HSplitContainer/CharacterPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_f5nqh")
+
+[node name="CharacterTitle" type="Label" parent="VBoxContainer/HSplitContainer/CharacterPanel/VBoxContainer/CharacterTitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Characters"
+label_settings = ExtResource("4_figfm")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/CharacterPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CharacterContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/CharacterPanel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="CharacterButton" type="Button" parent="VBoxContainer/HSplitContainer/CharacterPanel/VBoxContainer/ScrollContainer/CharacterContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_8lwfh")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("5_cw16e")
+theme_override_styles/hover = ExtResource("6_2glin")
+theme_override_styles/pressed = ExtResource("7_6cvvu")
+theme_override_styles/disabled = ExtResource("7_6cvvu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5oyq3")
+text = "Character Name aaaaaaaaaaaaaaaaaaaaaaaa"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+theme_override_icons/grabber = SubResource("PlaceholderTexture2D_20prv")
+
+[node name="DialoguePanel" type="PanelContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_rqj20")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer/DialoguePanel"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DialogueTitleContainer" type="PanelContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer/DialoguePanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_brnaj")
+
+[node name="DialogueTitle" type="Label" parent="VBoxContainer/HSplitContainer/HSplitContainer/DialoguePanel/VBoxContainer/DialogueTitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Dialogues"
+label_settings = ExtResource("4_figfm")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer/DialoguePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DialogueContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer/DialoguePanel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SpeechPanel" type="PanelContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_rqj20")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer/SpeechPanel"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer/SpeechPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_brnaj")
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/HSplitContainer/SpeechPanel/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Speeches"
+label_settings = ExtResource("4_figfm")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer/SpeechPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer/SpeechPanel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="WindowResizer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+script = ExtResource("14_5h5xk")
+
+[node name="Middle" type="HBoxContainer" parent="WindowResizer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="MiddleRightResizer" type="Panel" parent="WindowResizer/Middle"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_default_cursor_shape = 10
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5ti17")
+script = ExtResource("15_865i0")
+
+[node name="Bottom" type="HBoxContainer" parent="WindowResizer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="BottomMiddleResizer" type="Panel" parent="WindowResizer/Bottom"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+mouse_default_cursor_shape = 9
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5ti17")
+script = ExtResource("16_7y13h")
+
+[node name="BottomRightResizer" type="Panel" parent="WindowResizer/Bottom"]
+custom_minimum_size = Vector2(7, 7)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_default_cursor_shape = 12
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5ti17")
+script = ExtResource("17_t2p5l")
+
+[connection signal="mouse_entered" from="VBoxContainer/WindowPanelContainer" to="VBoxContainer/WindowPanelContainer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/WindowPanelContainer" to="VBoxContainer/WindowPanelContainer" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="WindowResizer/Middle/MiddleRightResizer" to="WindowResizer/Middle/MiddleRightResizer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="WindowResizer/Middle/MiddleRightResizer" to="WindowResizer/Middle/MiddleRightResizer" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="WindowResizer/Bottom/BottomMiddleResizer" to="WindowResizer/Bottom/BottomMiddleResizer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="WindowResizer/Bottom/BottomMiddleResizer" to="WindowResizer/Bottom/BottomMiddleResizer" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="WindowResizer/Bottom/BottomRightResizer" to="WindowResizer/Bottom/BottomRightResizer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="WindowResizer/Bottom/BottomRightResizer" to="WindowResizer/Bottom/BottomRightResizer" method="_on_mouse_exited"]

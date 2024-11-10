@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cugtbo268hyio"]
+
+[ext_resource type="FontFile" uid="uid://dhyyf52v0limj" path="res://Fonts/Inter_18pt-ExtraBold.ttf" id="1_xips4"]
+
+[resource]
+font = ExtResource("1_xips4")
+font_size = 14
+font_color = Color(0.5, 0.5, 0.5, 1)
