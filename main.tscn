@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://igghgoj14xbg"]
+[gd_scene load_steps=35 format=3 uid="uid://igghgoj14xbg"]
 
 [ext_resource type="StyleBox" uid="uid://dbvfq1iy743wl" path="res://Styles/main_background.tres" id="1_obqgm"]
 [ext_resource type="StyleBox" uid="uid://m6aikl57gdcq" path="res://Styles/window_panel.tres" id="2_62rlr"]
@@ -10,9 +10,17 @@
 [ext_resource type="Script" path="res://WindowPanelContainer.gd" id="4_07rid"]
 [ext_resource type="LabelSettings" uid="uid://cugtbo268hyio" path="res://Label Settings/panel_title.tres" id="4_figfm"]
 [ext_resource type="FontFile" uid="uid://b2hy1p82ki2h1" path="res://Fonts/Inter_18pt-Regular.ttf" id="5_8lwfh"]
+[ext_resource type="Texture2D" uid="uid://do5lsv2c6h4t" path="res://Icons/minimize.png" id="5_a3la2"]
 [ext_resource type="StyleBox" uid="uid://cn12rdr2q1ocg" path="res://Styles/character_button_normal.tres" id="5_cw16e"]
+[ext_resource type="Texture2D" uid="uid://cxswb584amdup" path="res://Icons/exit.png" id="5_f2igt"]
 [ext_resource type="StyleBox" uid="uid://cuqtigb34sha4" path="res://Styles/character_button_hover.tres" id="6_2glin"]
+[ext_resource type="Texture2D" uid="uid://dvrri0lfdkfeg" path="res://Icons/maximize.png" id="6_24qow"]
+[ext_resource type="Script" path="res://Minimize.gd" id="6_i3v04"]
 [ext_resource type="StyleBox" uid="uid://c3pdtaydwb6ph" path="res://Styles/character_button_clicked.tres" id="7_6cvvu"]
+[ext_resource type="Texture2D" uid="uid://dnkb2u1ldmwxi" path="res://Icons/restore.png" id="7_dpd1k"]
+[ext_resource type="Script" path="res://Maximize.gd" id="7_pta01"]
+[ext_resource type="Script" path="res://Restore.gd" id="8_4mcci"]
+[ext_resource type="Script" path="res://Exit.gd" id="9_ot3e6"]
 [ext_resource type="Script" path="res://WindowResizer.gd" id="14_5h5xk"]
 [ext_resource type="Script" path="res://MiddleRightResizer.gd" id="15_865i0"]
 [ext_resource type="Script" path="res://BottomMiddleResizer.gd" id="16_7y13h"]
@@ -35,6 +43,12 @@ VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_4bifp")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_4bifp")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_d1328")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_e5twu")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ylhc0"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vca76"]
 size = Vector2(0, 0)
@@ -61,7 +75,7 @@ layout_mode = 2
 theme_override_constants/separation = 2
 
 [node name="WindowPanelContainer" type="PanelContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 25)
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_62rlr")
 script = ExtResource("4_07rid")
@@ -69,13 +83,83 @@ script = ExtResource("4_07rid")
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/WindowPanelContainer"]
 layout_mode = 2
 
-[node name="Left" type="HBoxContainer" parent="VBoxContainer/WindowPanelContainer/HBoxContainer"]
+[node name="LeftMenu" type="HBoxContainer" parent="VBoxContainer/WindowPanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="Right" type="HBoxContainer" parent="VBoxContainer/WindowPanelContainer/HBoxContainer"]
+[node name="RightMenu" type="HBoxContainer" parent="VBoxContainer/WindowPanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_constants/separation = 0
+
+[node name="Minimize" type="Button" parent="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 0.498039)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ylhc0")
+icon = ExtResource("5_a3la2")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_i3v04")
+
+[node name="Maximize" type="Button" parent="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 0.498039)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ylhc0")
+icon = ExtResource("6_24qow")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("7_pta01")
+
+[node name="Restore" type="Button" parent="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu"]
+visible = false
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 0.498039)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ylhc0")
+icon = ExtResource("7_dpd1k")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("8_4mcci")
+
+[node name="Exit" type="Button" parent="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 0.498039)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ylhc0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ylhc0")
+icon = ExtResource("5_f2igt")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("9_ot3e6")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -239,6 +323,10 @@ script = ExtResource("17_t2p5l")
 
 [connection signal="mouse_entered" from="VBoxContainer/WindowPanelContainer" to="VBoxContainer/WindowPanelContainer" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/WindowPanelContainer" to="VBoxContainer/WindowPanelContainer" method="_on_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu/Minimize" to="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu/Minimize" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu/Maximize" to="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu/Maximize" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu/Restore" to="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu/Restore" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu/Exit" to="VBoxContainer/WindowPanelContainer/HBoxContainer/RightMenu/Exit" method="_on_pressed"]
 [connection signal="mouse_entered" from="WindowResizer/Middle/MiddleRightResizer" to="WindowResizer/Middle/MiddleRightResizer" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="WindowResizer/Middle/MiddleRightResizer" to="WindowResizer/Middle/MiddleRightResizer" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="WindowResizer/Bottom/BottomMiddleResizer" to="WindowResizer/Bottom/BottomMiddleResizer" method="_on_mouse_entered"]
